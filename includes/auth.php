@@ -25,7 +25,7 @@ function logout() {
 
 function guard() {
     if (!isLoggedIn()) {
-        header('Location: index.php');
+        header('Location: login');
         exit;
     }
 }

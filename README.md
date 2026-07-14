@@ -1,54 +1,42 @@
 # 👶 Giza Kids - Product Management System
 
-A simple web-based product management system for a children's clothing store.
+A simple web-based product management system for a children's clothing store. Built for **Vercel + Supabase**.
 
-## 🚀 Deploy on Vercel
+## 🚀 Deploy
 
-1. Push this code to a GitHub repo
+### 1. Supabase Setup
+```bash
+supabase login
+supabase init
+supabase link --project-ref YOUR_PROJECT_ID
+```
+Then run `setup.sql` in Supabase SQL Editor.
 
-2. On Vercel, import the repo
-   - **Framework**: Other
-   - **Root Directory**: `childrens-shop`
-   - **Build Command**: (leave empty)
-   - **Output Directory**: (leave empty)
+Your connection string will be:
+```
+postgresql://postgres:PASSWORD@db.YOUR_PROJECT.supabase.co:5432/postgres
+```
 
-3. Add Environment Variables:
-   - `ADMIN_PASSWORD` = Your password (default: `store2026`)
-   - `DB_HOST` = Your MySQL host (e.g., from PlanetScale, Aiven)
-   - `DB_USER` = Your MySQL user
-   - `DB_PASS` = Your MySQL password
-   - `DB_NAME` = Your database name
+### 2. Vercel Deploy
+Push to GitHub → Import to Vercel → Add env vars:
 
-4. Run `setup.sql` on your MySQL database first
-
-5. Deploy!
-
-## 🔧 Local Setup
-
-1. Create MySQL database and run `setup.sql`
-2. Copy `config/config.php` and set your DB credentials
-3. Set `ADMIN_PASSWORD` in `config/config.php`
-4. Run: `php -S localhost:8000`
-5. Visit: `http://localhost:8000/admin/index.php`
+| Variable | Value |
+|----------|-------|
+| `DATABASE_URL` | `postgresql://postgres:PASSWORD@db.YOUR_PROJECT.supabase.co:5432/postgres` |
+| `ADMIN_PASSWORD` | `your_password` |
 
 ## 📱 Features
-
-- ✅ Add/Edit/Delete products
-- ✅ QR code generation (in-browser)
-- ✅ QR scanner (mobile camera)
-- ✅ Bulk delete & QR download
+- ✅ Add/Edit/Delete products (4 price levels)
+- ✅ QR code generation (in-browser with QRCode.js)
+- ✅ QR scanner (mobile camera with html5-qrcode)
+- ✅ Bulk delete & QR ZIP download
 - ✅ Search & sort products
-- ✅ 4 price levels (purchase, sale, min, max)
 - ✅ Mobile-friendly
 
 ## 🔐 Default Login
-
-Password: `store2026` (change via config or env var)
+Password: `store2026` (change via `ADMIN_PASSWORD` env var)
 
 ## 📦 Tech
-
-- PHP (Vercel Serverless)
-- MySQL
-- QRCode.js
-- html5-qrcode
-- JSZip
+- PHP (Vercel Serverless via `vercel-php`)
+- PostgreSQL (Supabase)
+- QRCode.js / html5-qrcode / JSZip

@@ -1,15 +1,9 @@
 <?php
-/**
- * API: Get product by code
- * Used by the scanner
- */
-
-require_once __DIR__ . '/../includes/auth.php';
-require_once __DIR__ . '/../includes/db.php';
+require __DIR__ . '/../includes/auth.php';
+require __DIR__ . '/../includes/db.php';
 
 header('Content-Type: application/json');
 
-// Require auth
 if (!isLoggedIn()) {
     http_response_code(401);
     echo json_encode(['success' => false, 'message' => 'Unauthorized']);
@@ -17,17 +11,13 @@ if (!isLoggedIn()) {
 }
 
 $code = strtoupper(trim($_GET['code'] ?? ''));
-
 if (!$code) {
     http_response_code(400);
     echo json_encode(['success' => false, 'message' => 'Code required']);
     exit;
 }
 
-$st = db()->prepare("SELECT * FROM products WHERE product_code = ?");
-$st->bind_param('s', $code);
-$st->execute();
-$p = $st->get_result()->fetch_assoc();
+$p = fetchOne("SELECT * FROM products WHERE product_code = ?", [$code]);
 
 if ($p) {
     echo json_encode([

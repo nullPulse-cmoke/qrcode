@@ -1,1 +1,1 @@
-<?php header('Location: admin/index.php'); exit; ?>
+<?php header('Location: login'); exit; ?>
